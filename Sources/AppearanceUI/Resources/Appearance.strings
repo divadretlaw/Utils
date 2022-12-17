@@ -1,0 +1,27 @@
+/* 
+  Appearance.strings
+  Utils/AppearanceUI
+
+  Created by David Walter on 17.12.22.
+*/
+
+"appearance.mode.title" = "Mode";
+
+"appearance.mode.system" = "System";
+"appearance.mode.manual" = "Manual";
+"appearance.mode.scheduled" = "Scheduled";
+"appearance.mode.brightness" = "Brightness";
+
+"appearance.mode.system.hint" = "Matches the sytem theme";
+"appearance.mode.manual.hint" = "Force a specific theme";
+"appearance.mode.scheduled.hint" = "Based on current time";
+"appearance.mode.brightness.hint" = "Based on screen brightness";
+
+"appearance.mode.manual.light" = "Light";
+"appearance.mode.manual.dark" = "Dark";
+
+"appearance.mode.scheduled.light" = "Light Mode starts";
+"appearance.mode.scheduled.dark" = "Dark Mode starts";
+
+"appearance.mode.brightness.slider" = "Brightness";
+"appearance.mode.brightness.slider.hint" = "Will switch to dark mode when %d %% brightness or less.";
