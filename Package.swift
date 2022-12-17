@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Utils",
     defaultLocalization: "en",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v15)],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
@@ -20,6 +20,10 @@ let package = Package(
         .library(
             name: "AppearanceUI",
             targets: ["AppearanceUI"]
+        ),
+        .library(
+            name: "UserDefaultsBrowser",
+            targets: ["UserDefaultsBrowser"]
         )
     ],
     dependencies: [
@@ -43,6 +47,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .target(
+            name: "UserDefaultsBrowser",
+            dependencies: []
         ),
         .testTarget(
             name: "UtilsTests",
