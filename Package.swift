@@ -22,6 +22,10 @@ let package = Package(
             targets: ["AppearanceUI"]
         ),
         .library(
+            name: "AlternateIconUI",
+            targets: ["AlternateIconUI"]
+        ),
+        .library(
             name: "UserDefaultsBrowser",
             targets: ["UserDefaultsBrowser"]
         )
@@ -47,6 +51,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .target(
+            name: "AlternateIconUI",
+            dependencies: []
         ),
         .target(
             name: "UserDefaultsBrowser",

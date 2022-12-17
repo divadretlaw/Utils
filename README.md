@@ -6,6 +6,7 @@ A collection of utilities for iOS apps
 
 - [`Appearance`](Sources/Appearance/Appearance.docc/Appearance.md)
 - [`AppearanceUI`](Sources/AppearanceUI/AppearanceUI.docc/AppearanceUI.md)
+- [`AlternateIconUI`](Sources/AlternateIconUI/AlternateIconUI.docc/AlternateIconUI.md)
 
 ## Debug Frameworks
 
