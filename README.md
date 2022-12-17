@@ -1,16 +1,18 @@
 # Utils
 
-A description of this package.
+A collection of utilities for iOS apps
 
-## Appearance
+## Frameworks
 
-Change the appearance of the app 
+- [`Appearance`](Sources/Appearance/Appearance.docc/Appearance.md)
+- [`AppearanceUI`](Sources/AppearanceUI/AppearanceUI.docc/AppearanceUI.md)
 
-### Modes
+## Debug Frameworks
 
-- `.system`
-- ``
+These fameworks are useful for debug menus within an application.
 
-## UserDefaultsBrowser
+- `UserDefaultsBrowser`
 
-Browse `UserDefaults`. Useful for Debug Menus
+## License
+
+See [LICENSE](LICENSE)
