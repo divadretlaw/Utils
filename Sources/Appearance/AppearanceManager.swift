@@ -22,6 +22,9 @@ public class AppearanceManager: ObservableObject {
     
     private var userDefaults: UserDefaults
     
+    /// Initialize a ``AppearanceManager``
+    ///
+    /// - Parameter userDefaults: The `UserDefaults` to use to store the configuration
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
         
@@ -49,7 +52,7 @@ public class AppearanceManager: ObservableObject {
         apply()
     }
     
-    /// The currently used `UIUserInterfaceStyle`
+    /// The current `UIUserInterfaceStyle`
     public var userInterfaceStyle: UIUserInterfaceStyle {
         switch mode {
         case .system:
@@ -73,12 +76,12 @@ public class AppearanceManager: ObservableObject {
         }
     }
     
-    /// The currently used `ColorScheme`
+    /// The current`ColorScheme`
     public var colorScheme: ColorScheme? {
         userInterfaceStyle.colorScheme
     }
     
-    /// Apply
+    /// Apply the appearance based on configuration
     public func apply() {
         setupTimer()
         
