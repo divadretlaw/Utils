@@ -18,7 +18,7 @@ public struct LicensePlist: Hashable {
     }
     
     public struct Entry: Identifiable, Hashable {
-        /// Identifier of the ``Entry``
+        /// Unique identifier of the entry
         public let id: UUID
         /// Title of the entry
         public let title: String

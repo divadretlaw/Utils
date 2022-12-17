@@ -5,8 +5,8 @@ A collection of utilities for iOS apps
 ## Frameworks
 
 - [`Appearance`](Sources/Appearance/Appearance.docc/Appearance.md)
-- [`LicensePlist `](Sources/LicensePlist/LicensePlist.docc/LicensePlist.md)
 - [`AppInfo`](Sources/AppInfo/AppInfo.docc/AppInfo.md)
+- [`LicensePlist`](Sources/LicensePlist/LicensePlist.docc/LicensePlist.md)
 
 ## SwiftUI Frameworks
 
