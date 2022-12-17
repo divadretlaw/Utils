@@ -26,6 +26,14 @@ let package = Package(
             targets: ["AlternateIconUI"]
         ),
         .library(
+            name: "LicensePlist",
+            targets: ["LicensePlist"]
+        ),
+        .library(
+            name: "LicensePlistUI",
+            targets: ["LicensePlistUI"]
+        ),
+        .library(
             name: "UserDefaultsBrowser",
             targets: ["UserDefaultsBrowser"]
         )
@@ -55,6 +63,17 @@ let package = Package(
         .target(
             name: "AlternateIconUI",
             dependencies: []
+        ),
+        .target(
+            name: "LicensePlist",
+            dependencies: []
+        ),
+        .target(
+            name: "LicensePlistUI",
+            dependencies: ["LicensePlist"],
+            resources: [
+                .process("Resources")
+            ]
         ),
         .target(
             name: "UserDefaultsBrowser",
