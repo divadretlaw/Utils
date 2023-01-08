@@ -90,7 +90,7 @@ public struct AppearanceSettingsView: View {
 }
 
 extension AppearanceMode {
-    var localizedKey: String {
+    private var localizedKey: String {
         switch self {
         case .system:
             return "appearance.mode.system"
@@ -107,7 +107,7 @@ extension AppearanceMode {
         localizedKey.localized()
     }
     
-    var localizedHintKey: String {
+    private var localizedHintKey: String {
         switch self {
         case .system:
             return "appearance.mode.system.hint"
