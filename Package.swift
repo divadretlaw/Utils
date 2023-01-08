@@ -41,6 +41,10 @@ let package = Package(
             targets: ["LicensePlistUI"]
         ),
         .library(
+            name: "SafariServicesUI",
+            targets: ["SafariServicesUI"]
+        ),
+        .library(
             name: "UserDefaultsBrowser",
             targets: ["UserDefaultsBrowser"]
         )
@@ -85,6 +89,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .target(
+            name: "SafariServicesUI",
+            dependencies: []
         ),
         .target(
             name: "UserDefaultsBrowser",
