@@ -8,25 +8,28 @@
 import SwiftUI
 import SafariServices
 
-struct ManualPresenter: UIViewControllerRepresentable {
+struct ManualPresenter: UIViewRepresentable {
     @Binding var isPresented: Bool
     var safari: SFSafariViewController?
     
-    func makeUIViewController(context: Context) -> UIViewController {
-        let viewController = UIViewController()
-        viewController.view = UIView(frame: .zero)
-        viewController.view.isUserInteractionEnabled = false
-        return viewController
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(frame: .zero)
+        view.isHidden = true
+        view.isUserInteractionEnabled = false
+        return view
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+    func updateUIView(_ uiView: UIView, context: Context) {
+        guard let viewController = uiView.findTopViewController() else { return }
+        
         if isPresented {
             guard let safari = safari, !context.coordinator.isPresenting else { return }
+            
             context.coordinator.isPresenting = true
             safari.delegate = context.coordinator
-            uiViewController.present(safari, animated: true)
+            viewController.present(safari, animated: true)
         } else {
-            uiViewController.dismiss(animated: true, completion: nil)
+            safari?.dismiss(animated: true)
         }
     }
     
