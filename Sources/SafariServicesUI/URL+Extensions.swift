@@ -18,14 +18,18 @@ extension URL {
         isAppStore || isMapsLink
     }
     
-    private var isAppStore: Bool {
-        guard let host = host?.lowercased() else { return false }
-        guard ["apps.apple.com", "itunes.apple.com"].contains(host) else { return false }
-        guard lastPathComponent.hasPrefix("id") else { return false }
-        return Int(lastPathComponent.dropFirst(2)) != nil
+    var isAppStore: Bool {
+        appStoreId != nil
     }
     
-    private var isMapsLink: Bool {
+    var appStoreId: Int? {
+        guard let host = host?.lowercased() else { return nil }
+        guard ["apps.apple.com", "itunes.apple.com"].contains(host) else { return nil }
+        guard lastPathComponent.hasPrefix("id") else { return nil }
+        return Int(lastPathComponent.dropFirst(2))
+    }
+    
+    var isMapsLink: Bool {
         guard let host = host?.lowercased() else { return false }
         guard "maps.apple.com" == host else { return false }
         return query != nil

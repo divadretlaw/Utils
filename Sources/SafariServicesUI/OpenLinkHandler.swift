@@ -7,6 +7,9 @@
 
 import SwiftUI
 import SafariServices
+#if canImport(StoreKit)
+import StoreKit
+#endif
 
 public enum SafariOpenURLAction {
     case safari
@@ -22,12 +25,12 @@ struct OpenLinkHandler: ViewModifier {
     @Environment(\.safariPreferredControlTintColor) var safariPreferredControlTintColor
     @Environment(\.safariDismissButtonStyle) var safariDismissButtonStyle
     
-    @State private var safari: SFSafariViewController?
+    @State private var viewController: UIViewController?
     
     func body(content: Content) -> some View {
         content
             .background {
-                Presenter(safari: safari)
+                Presenter(viewController: viewController)
             }
             .environment(\.openURL, OpenURLAction { url in
                 switch action(url) {
@@ -40,6 +43,20 @@ struct OpenLinkHandler: ViewModifier {
     }
     
     func openSafari(with url: URL) -> OpenURLAction.Result {
+        #if canImport(StoreKit)
+        if let id = url.appStoreId {
+            let storeProductViewController = SKStoreProductViewController()
+            storeProductViewController.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier: id]) { _, error in
+                if error != nil {
+                    UIApplication.shared.open(url)
+                } else {
+                    self.viewController = storeProductViewController
+                }
+            }
+            return .handled
+        }
+        #endif
+        
         guard url.supportsSafari else {
             return fallback(url)
         }
@@ -56,7 +73,7 @@ struct OpenLinkHandler: ViewModifier {
         safari.preferredControlTintColor = safariPreferredControlTintColor
         safari.dismissButtonStyle = safariDismissButtonStyle
         
-        self.safari = safari
+        self.viewController = safari
         return .handled
     }
 }
@@ -66,6 +83,10 @@ struct OpenLinkHandler_Previews: PreviewProvider {
         List {
             Link(destination: URL(string: "https://davidwalter.at")!) {
                 Text("Open")
+            }
+            
+            Link(destination: URL(string: "https://apps.apple.com/us/app/untilsince/id1393742286")!) {
+                Text("App")
             }
         }
         .safariOpenURL()
