@@ -70,10 +70,15 @@ public struct AppearanceSettingsView: View {
             if manager.mode == .brightness {
                 Section {
                     Slider(value: $manager.brightnessThreshold,
-                           in: 0 ... 1,
-                           minimumValueLabel: Image(systemName: "sun.min"),
-                           maximumValueLabel: Image(systemName: "sun.max")) {
+                           in: 0 ... 1) {
                         Text("appearance.mode.brightness.slider".localized())
+                    } minimumValueLabel: {
+                        Image(systemName: "sun.min")
+                    } maximumValueLabel: {
+                        Image(systemName: "sun.max")
+                    } onEditingChanged: { value in
+                        guard !value else { return }
+                        manager.apply()
                     }
                 } header: {
                     Text("appearance.mode.brightness".localized())

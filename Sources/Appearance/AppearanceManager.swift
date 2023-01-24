@@ -181,7 +181,6 @@ public class AppearanceManager: ObservableObject {
     @Published public var brightnessThreshold: Double {
         didSet {
             userDefaults.brightnessThreshold = brightnessThreshold
-            apply()
         }
     }
     
