@@ -45,6 +45,10 @@ let package = Package(
             targets: ["SafariServicesUI"]
         ),
         .library(
+            name: "TaskButton",
+            targets: ["TaskButton"]
+        ),
+        .library(
             name: "UserDefaultsBrowser",
             targets: ["UserDefaultsBrowser"]
         )
@@ -92,6 +96,10 @@ let package = Package(
         ),
         .target(
             name: "SafariServicesUI",
+            dependencies: []
+        ),
+        .target(
+            name: "TaskButton",
             dependencies: []
         ),
         .target(
