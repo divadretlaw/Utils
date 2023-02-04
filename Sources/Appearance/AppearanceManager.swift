@@ -5,6 +5,7 @@
 //  Created by David Walter on 17.12.22.
 //
 
+#if canImport(UIKit)
 import Foundation
 import Defaults
 import SwiftUI
@@ -189,3 +190,4 @@ public class AppearanceManager: ObservableObject {
         apply()
     }
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by David Walter on 17.12.22.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 import Appearance
 
@@ -137,3 +138,4 @@ struct AppearanceManager_Previews: PreviewProvider {
         }
     }
 }
+#endif

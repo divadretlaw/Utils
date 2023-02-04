@@ -5,6 +5,7 @@
 //  Created by David Walter on 08.01.23.
 //
 
+#if os(iOS)
 import SwiftUI
 import SafariServices
 
@@ -53,3 +54,4 @@ struct ManualPresenter: UIViewRepresentable {
         }
     }
 }
+#endif

@@ -42,7 +42,6 @@ struct AppInfoRow_Previews: PreviewProvider {
                         .padding(.vertical)
                 }
             }
-            .listStyle(.insetGrouped)
         }
     }
 }

@@ -5,6 +5,7 @@
 //  Created by David Walter on 06.01.23.
 //
 
+#if os(iOS)
 import Foundation
 import SwiftUI
 import SafariServices
@@ -66,3 +67,4 @@ public extension EnvironmentValues {
         }
     }
 }
+#endif

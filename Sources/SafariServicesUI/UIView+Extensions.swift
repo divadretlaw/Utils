@@ -5,6 +5,7 @@
 //  Created by David Walter on 16.01.23.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 extension UIView {
@@ -31,3 +32,4 @@ extension UIViewController {
         return self
     }
 }
+#endif

@@ -5,6 +5,7 @@
 //  Created by David Walter on 08.01.23.
 //
 
+#if os(iOS)
 import SwiftUI
 import SafariServices
 
@@ -40,3 +41,4 @@ public extension View {
         modifier(SafariView(url: url, isPresented: isPresented, customize: customize, configuration: configuration))
     }
 }
+#endif

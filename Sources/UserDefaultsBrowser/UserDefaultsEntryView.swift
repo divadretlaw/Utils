@@ -20,7 +20,7 @@ struct UserDefaultsEntryView: View {
             formattedData
             rawData
         }
-        .navigationBarTitle(entry.key)
+        .navigationTitle(entry.key)
         .toolbar {
             Button(role: .destructive) {
                 showDeleteConfirmation = true

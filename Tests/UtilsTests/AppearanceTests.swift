@@ -5,6 +5,7 @@
 //  Created by David Walter on 17.12.22.
 //
 
+#if os(iOS)
 import XCTest
 @testable import Appearance
 
@@ -75,3 +76,4 @@ final class AppearanceTests: XCTestCase {
         XCTAssertTrue(manager.colorScheme == .dark)
     }
 }
+#endif

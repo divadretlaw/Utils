@@ -44,11 +44,15 @@ public struct AboutView: View {
     }
     
     var appIcon: Image {
+        #if canImport(UIKit)
         if let icon = AppInfo.icon {
             return Image(uiImage: icon)
         } else {
             return Image(systemName: "app.dashed")
         }
+        #else
+        return Image(systemName: "app.dashed")
+        #endif
     }
     
     public init(additional: [String] = []) {
@@ -79,7 +83,6 @@ struct AboutView_Previews: PreviewProvider {
                         .padding(.vertical)
                 }
             }
-            .listStyle(.grouped)
             .navigationTitle("About")
         }
     }

@@ -5,6 +5,7 @@
 //  Created by David Walter on 06.01.23.
 //
 
+#if os(iOS)
 import SwiftUI
 import SafariServices
 
@@ -80,3 +81,4 @@ struct SafariView_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 public struct AppInfo {
     var bundle: Bundle
@@ -19,9 +21,11 @@ public struct AppInfo {
         bundle.string(for: .appName)
     }
     
+    #if canImport(UIKit)
     public var icon: UIImage? {
         bundle.appIcon
     }
+    #endif
     
     public var version: String? {
         bundle.string(for: .version)
@@ -41,9 +45,11 @@ public struct AppInfo {
         AppInfo().name
     }
     
+    #if canImport(UIKit)
     public static var icon: UIImage? {
         AppInfo().icon
     }
+    #endif
     
     public static var version: String? {
         AppInfo().version

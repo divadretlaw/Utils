@@ -5,8 +5,8 @@
 //  Created by David Walter on 08.01.23.
 //
 
+#if canImport(UIKit)
 import SwiftUI
-import SafariServices
 
 struct Presenter: UIViewRepresentable {
     var viewController: UIViewController?
@@ -23,3 +23,4 @@ struct Presenter: UIViewRepresentable {
         topViewController.present(viewController, animated: true)
     }
 }
+#endif

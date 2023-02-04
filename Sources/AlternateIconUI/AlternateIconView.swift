@@ -5,6 +5,7 @@
 //  Created by David Walter on 17.12.22.
 //
 
+#if os(iOS)
 import SwiftUI
 
 public struct AlternateIconView<Icon>: View where Icon: AlternateIcon {
@@ -150,4 +151,5 @@ struct AlternateIconView_Previews: PreviewProvider {
         }
     }
 }
+#endif
 #endif

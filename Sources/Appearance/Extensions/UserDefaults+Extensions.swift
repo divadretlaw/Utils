@@ -7,7 +7,9 @@
 
 import Foundation
 import Defaults
+#if canImport(UIKit)
 import UIKit
+#endif
 
 extension UserDefaults {
     var mode: AppearanceMode {
@@ -19,6 +21,7 @@ extension UserDefaults {
         }
     }
     
+    #if canImport(UIKit)
     var manualUserInterfaceStyle: UIUserInterfaceStyle {
         get {
             UIUserInterfaceStyle(rawValue: self.integer(forKey: "Utils:AppearanceManager-manual")) ?? UITraitCollection.current.userInterfaceStyle
@@ -27,6 +30,7 @@ extension UserDefaults {
             self.set(newValue.rawValue, forKey: "Utils:AppearanceManager-manual")
         }
     }
+    #endif
     
     var scheduleLight: TimeInterval {
         get {

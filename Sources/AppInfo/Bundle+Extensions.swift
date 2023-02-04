@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 extension Bundle {
     func string(for key: InfoPlistKey) -> String? {
@@ -17,6 +19,7 @@ extension Bundle {
         self.infoDictionary?[key.rawValue]
     }
     
+    #if canImport(UIKit)
     var appIcon: UIImage? {
         guard let icons = infoDictionary?["CFBundleIcons"] as? [String: Any],
               let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
@@ -27,4 +30,5 @@ extension Bundle {
         
         return UIImage(named: highestResolution)
     }
+    #endif
 }

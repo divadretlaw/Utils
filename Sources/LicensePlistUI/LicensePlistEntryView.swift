@@ -28,8 +28,7 @@ struct LicensePlistEntryView: View {
                     .multilineTextAlignment(.leading)
             }
         }
-        .navigationBarTitle(entry.title)
-        .listStyle(.insetGrouped)
+        .navigationTitle(entry.title)
     }
     
     @ViewBuilder

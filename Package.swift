@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "Utils",
     defaultLocalization: "en",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v13)],
     products: [
         .library(
             name: "Defaults",
@@ -39,6 +39,10 @@ let package = Package(
         .library(
             name: "LicensePlistUI",
             targets: ["LicensePlistUI"]
+        ),
+        .library(
+            name: "MFMailUI",
+            targets: ["MFMailUI"]
         ),
         .library(
             name: "SafariServicesUI",
@@ -93,6 +97,10 @@ let package = Package(
             resources: [
                 .process("Resources")
             ]
+        ),
+        .target(
+            name: "MFMailUI",
+            dependencies: []
         ),
         .target(
             name: "SafariServicesUI",

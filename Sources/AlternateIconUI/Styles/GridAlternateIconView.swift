@@ -5,6 +5,7 @@
 //  Created by David Walter on 17.12.22.
 //
 
+#if os(iOS)
 import SwiftUI
 
 struct GridAlternateIconView<Icon>: View where Icon: AlternateIcon {
@@ -111,4 +112,5 @@ struct GridAlternateIconView_Previews: PreviewProvider {
         .previewDisplayName("Grid 4x4")
     }
 }
+#endif
 #endif

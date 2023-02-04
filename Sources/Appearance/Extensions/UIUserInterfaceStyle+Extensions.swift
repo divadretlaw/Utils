@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
 
 extension UIUserInterfaceStyle {
@@ -23,3 +24,4 @@ extension UIUserInterfaceStyle {
         }
     }
 }
+#endif

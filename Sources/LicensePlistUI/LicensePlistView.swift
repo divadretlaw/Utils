@@ -21,7 +21,6 @@ public struct LicensePlistView: View {
                 }
             }
         }
-        .listStyle(.insetGrouped)
     }
     
     public init(data: LicensePlist) {
@@ -35,7 +34,7 @@ struct SwiftUIView_Previews: PreviewProvider {
         NavigationView {
             LicensePlistView(data: LicensePlist(entries: [LicensePlist.Entry(title: "Test A", license: "Some license"),
                                                           LicensePlist.Entry(title: "Test B", license: "Some license", source: "https://github.com/test/test")]))
-                .navigationBarTitle("Licenses")
+                .navigationTitle("Licenses")
         }
     }
 }
