@@ -21,13 +21,36 @@ public struct AppearanceSettingsView: View {
             Section {
                 Picker(selection: $manager.mode) {
                     ForEach(AppearanceMode.allCases) { mode in
-                        VStack(alignment: .leading) {
-                            Text(mode.localized)
-                                .font(.body)
-                                .foregroundColor(.primary)
-                            Text(mode.localizedHint)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        HStack(spacing: 10) {
+                            if mode.isDynamic {
+                                mode.icon
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .modifier(BlackWhiteViewModifier())
+                            } else {
+                                mode.icon
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.secondary)
+                                    .padding(5)
+                                    .background {
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                                .fill(Color(uiColor: .systemGroupedBackground))
+                                        }
+                                    }
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text(mode.localized)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                Text(mode.localizedHint)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                         .tag(mode)
                     }
@@ -41,10 +64,40 @@ public struct AppearanceSettingsView: View {
             if manager.mode == .manual {
                 Section {
                     Picker(selection: $manager.manualUserInterfaceStyle) {
-                        Text("appearance.mode.manual.light".localized())
-                            .tag(UIUserInterfaceStyle.light)
-                        Text("appearance.mode.manual.dark".localized())
-                            .tag(UIUserInterfaceStyle.dark)
+                        HStack(spacing: 10) {
+                            Image(systemName: "textformat.size")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.black)
+                                .padding(5)
+                                .background {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                            .fill(.white)
+                                    }
+                                }
+                            
+                            Text("appearance.mode.manual.light".localized())
+                        }
+                        .tag(UIUserInterfaceStyle.light)
+                        HStack(spacing: 10) {
+                            Image(systemName: "textformat.size")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(.white)
+                                .padding(5)
+                                .background {
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 8, style: .continuous)
+                                            .fill(.black)
+                                    }
+                                }
+                            
+                            Text("appearance.mode.manual.dark".localized())
+                        }
+                        .tag(UIUserInterfaceStyle.dark)
                     } label: {
                         Text("appearance.mode.manual".localized())
                     }
@@ -129,12 +182,37 @@ extension AppearanceMode {
     var localizedHint: String {
         localizedHintKey.localized()
     }
+    
+    var icon: Image {
+        switch self {
+        case .scheduled:
+            return Image(systemName: "clock")
+        case .brightness:
+            return Image(systemName: "sun.max")
+        default:
+            return Image(systemName: "textformat.size")
+        }
+    }
+    
+    var isDynamic: Bool {
+        switch self {
+        case .system:
+            return false
+        case .manual:
+            return true
+        case .scheduled:
+            return true
+        case .brightness:
+            return true
+        }
+    }
 }
 
 struct AppearanceManager_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             AppearanceSettingsView(manager: AppearanceManager())
+                .navigationTitle("Appearance")
         }
     }
 }
