@@ -121,6 +121,7 @@ public struct AppearanceSettingsView: View {
                 }
             }
             
+            #if !targetEnvironment(macCatalyst)
             if manager.mode == .brightness {
                 Section {
                     Slider(value: $manager.brightnessThreshold,
@@ -140,6 +141,7 @@ public struct AppearanceSettingsView: View {
                     Text(String(format: "appearance.mode.brightness.slider.hint".localized(), Int(manager.brightnessThreshold * 100)))
                 }
             }
+            #endif
         }
         .animation(.default, value: manager.mode)
         .onAppear {
@@ -157,8 +159,10 @@ extension AppearanceMode {
             return "appearance.mode.manual"
         case .scheduled:
             return "appearance.mode.scheduled"
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             return "appearance.mode.brightness"
+        #endif
         }
     }
     
@@ -174,8 +178,10 @@ extension AppearanceMode {
             return "appearance.mode.manual.hint"
         case .scheduled:
             return "appearance.mode.scheduled.hint"
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             return "appearance.mode.brightness.hint"
+        #endif
         }
     }
     
@@ -187,8 +193,10 @@ extension AppearanceMode {
         switch self {
         case .scheduled:
             return Image(systemName: "clock")
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             return Image(systemName: "sun.max")
+        #endif
         default:
             return Image(systemName: "textformat.size")
         }
@@ -202,8 +210,10 @@ extension AppearanceMode {
             return true
         case .scheduled:
             return true
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             return true
+        #endif
         }
     }
 }

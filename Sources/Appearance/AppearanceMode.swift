@@ -15,8 +15,10 @@ public enum AppearanceMode: Int, CaseIterable, Identifiable, CustomStringConvert
     case manual
     /// Apply the appearance based on a schedule
     case scheduled
+    #if !targetEnvironment(macCatalyst)
     /// Apply the appearance based on screen brightness
     case brightness
+    #endif
     
     // MARK: Identifiable
     
@@ -32,8 +34,10 @@ public enum AppearanceMode: Int, CaseIterable, Identifiable, CustomStringConvert
             return "manual"
         case .scheduled:
             return "scheduled"
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             return "brightness"
+        #endif
         }
     }
 }

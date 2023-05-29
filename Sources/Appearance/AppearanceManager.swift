@@ -43,7 +43,7 @@ public class AppearanceManager: ObservableObject {
             self.apply()
         }
         
-        #if os(iOS)
+        #if os(iOS) && !targetEnvironment(macCatalyst)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(brightnessDidChange),
                                                name: UIScreen.brightnessDidChangeNotification,
@@ -60,6 +60,7 @@ public class AppearanceManager: ObservableObject {
             return .unspecified
         case .manual:
             return manualUserInterfaceStyle
+        #if !targetEnvironment(macCatalyst)
         case .brightness:
             switch brightnessCheck() {
             case 0...brightnessThreshold:
@@ -67,6 +68,7 @@ public class AppearanceManager: ObservableObject {
             default:
                 return .light
             }
+        #endif
         case .scheduled:
             switch Date() {
             case Date.today.addingTimeInterval(userDefaults.scheduleLight)...Date.today.addingTimeInterval(userDefaults.scheduleDark):
@@ -185,9 +187,11 @@ public class AppearanceManager: ObservableObject {
         }
     }
     
+    #if !targetEnvironment(macCatalyst)
     @objc func brightnessDidChange() {
         guard mode == .brightness else { return }
         apply()
     }
+    #endif
 }
 #endif
