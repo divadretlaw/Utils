@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "windowscenereader",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/divadretlaw/WindowSceneReader.git",
+      "state" : {
+        "revision" : "8700ee5260654666a63d8a21581a63a2972baf32",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 2
+}

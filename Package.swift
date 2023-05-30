@@ -58,6 +58,7 @@ let package = Package(
         )
     ],
     dependencies: [
+        .package(url: "https://github.com/divadretlaw/WindowSceneReader.git", from: "1.1.0")
     ],
     targets: [
         .target(
@@ -104,7 +105,7 @@ let package = Package(
         ),
         .target(
             name: "SafariServicesUI",
-            dependencies: []
+            dependencies: ["WindowSceneReader"]
         ),
         .target(
             name: "TaskButton",

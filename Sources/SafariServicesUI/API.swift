@@ -5,40 +5,34 @@
 //  Created by David Walter on 08.01.23.
 //
 
-#if os(iOS)
 import SwiftUI
 import SafariServices
 
 public extension View {
-    /// Open URL with `SFSafariViewController`
-    ///
-    /// - Parameters:
-    ///     - safari: Whether to use `SFSafariViewController` for the given `URL`.
-    ///     Return `.fallback` to use a fallback when not using Safari.
-    ///     - fallback: Optional fallback to handle the url if `safari` couldn't be used
-    /// - Returns: The view with a `SFSafariViewController` handling openened URLs
-    func safariOpenURL(
-        perform: @escaping (URL) -> SafariOpenURLAction = { _ in .safari },
-        fallback: @escaping (URL) -> OpenURLAction.Result = { _ in .systemAction }
-    ) -> some View {
-        modifier(OpenLinkHandler(action: perform, fallback: fallback))
+    func openURL(handler: @escaping (URL) -> OpenURLAction.Result) -> some View {
+        environment(\.openURL, OpenURLAction(handler: handler))
     }
+}
+
+#if os(iOS)
+import WindowSceneReader
+
+public extension View {
+    func openURL(handler: @escaping (URL, UIWindowScene) -> OpenURLAction.Result) -> some View {
+        modifier(WindowSceneOpenURL(handler: handler))
+    }
+}
+
+struct WindowSceneOpenURL: ViewModifier {
+    var handler: (URL, UIWindowScene) -> OpenURLAction.Result
     
-    /// Present a URL with `SFSafariViewController`
-    ///
-    /// - Parameters:
-    ///     - url: The `URL` to present
-    ///     - isPresented: A binding to a Boolean value that determines whether
-    ///     to present the `SFSafariViewController` that you create in the modifier's
-    ///     - customize: Customize the created `SFSafariViewController`
-    ///     - configuration: Optionally provide a `SFSafariViewController.Configuration`
-    func safari(
-        url: URL,
-        isPresented: Binding<Bool>,
-        customize: @escaping (SFSafariViewController) -> Void = { _ in },
-        configuration: (() -> SFSafariViewController.Configuration)? = nil
-    ) -> some View {
-        modifier(SafariView(url: url, isPresented: isPresented, customize: customize, configuration: configuration))
+    func body(content: Content) -> some View {
+        WindowSceneReader { windowScene in
+            content
+                .environment(\.openURL, OpenURLAction(handler: { url in
+                    handler(url, windowScene)
+                }))
+        }
     }
 }
 #endif
