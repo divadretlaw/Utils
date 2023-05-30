@@ -76,7 +76,7 @@ public extension OpenURLAction.Result {
     }
     
     @MainActor
-    static func safariWindow(_ url: URL, configure: (inout OpenURLAction.SafariConfiguration) -> Void, windowScene: UIWindowScene?) -> Self {
+    static func safariWindow(_ url: URL, windowScene: UIWindowScene?, configure: (inout OpenURLAction.SafariConfiguration) -> Void) -> Self {
         guard url.supportsSafari else {
             return .systemAction
         }
@@ -92,6 +92,7 @@ public extension OpenURLAction.Result {
         safari.preferredBarTintColor = config.preferredBarTintColor
         safari.preferredControlTintColor = config.preferredControlTintColor
         safari.dismissButtonStyle = config.dismissButtonStyle
+        safari.overrideUserInterfaceStyle = config.overrideUserInterfaceStyle
         
         OpenURLAction.SafariManager.shared.present(safari, on: windowScene)
         
@@ -106,6 +107,7 @@ extension OpenURLAction {
         public var preferredControlTintColor: UIColor? = .tintColor
         public var dismissButtonStyle: SFSafariViewController.DismissButtonStyle = .done
         public var modalPresentationStyle: UIModalPresentationStyle = .automatic
+        public var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
     }
 }
 
