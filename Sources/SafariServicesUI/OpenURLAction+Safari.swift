@@ -115,8 +115,7 @@ extension OpenURLAction {
     private class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDelegate {
         static var shared = SafariManager()
         
-        private var windowScene: UIWindowScene?
-        private var windows: [UIWindowScene: UIWindow] = [:]
+        private var windows: [SFSafariViewController: UIWindow] = [:]
         private let viewController: UIViewController = .init()
         
         @MainActor
@@ -124,12 +123,12 @@ extension OpenURLAction {
             safari.delegate = self
             
             let (window, viewController) = setup(windowScene: windowScene)
-            windows[windowScene] = window
+            windows[safari] = window
             viewController.present(safari, animated: true)
         }
         
         private func setup(windowScene: UIWindowScene) -> (UIWindow, UIViewController) {
-            let window = windows[windowScene] ?? UIWindow(windowScene: windowScene)
+            let window = UIWindow(windowScene: windowScene)
             
             let viewController = UIViewController()
             window.rootViewController = viewController
@@ -139,10 +138,10 @@ extension OpenURLAction {
         }
         
         internal func safariViewControllerDidFinish(_ safari: SFSafariViewController) {
-            guard let window = safari.view.window, let windowScene = window.windowScene else { return }
-            window.resignKey()
-            window.isHidden = false
-            windows[windowScene] = nil
+            let window = safari.view.window
+            window?.resignKey()
+            window?.isHidden = false
+            windows[safari] = nil
         }
     }
 }
