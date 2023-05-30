@@ -17,11 +17,11 @@ public extension OpenURLAction.Result {
         
         let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
         let window = scene?.windows.first { $0.isKeyWindow }
-
+        
         guard let rootViewController = window?.rootViewController else {
             return .systemAction
         }
-
+        
         let safari = SFSafariViewController(url: url)
         if window?.traitCollection.horizontalSizeClass == .regular {
             safari.modalPresentationStyle = .pageSheet
@@ -29,7 +29,7 @@ public extension OpenURLAction.Result {
         rootViewController.present(safari, animated: true)
         return .handled
     }
-
+    
     static func safari(_ url: URL, configure: (inout OpenURLAction.SafariConfiguration) -> Void) -> Self {
         guard url.supportsSafari else {
             return .systemAction
@@ -37,11 +37,11 @@ public extension OpenURLAction.Result {
         
         let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
         let window = scene?.windows.first { $0.isKeyWindow }
-
+        
         guard let rootViewController = window?.rootViewController else {
             return .systemAction
         }
-
+        
         var config = OpenURLAction.SafariConfiguration()
         configure(&config)
         
@@ -116,12 +116,11 @@ extension OpenURLAction {
         static var shared = SafariManager()
         
         private var windows: [SFSafariViewController: UIWindow] = [:]
-        private let viewController: UIViewController = .init()
         
         @MainActor
         public func present(_ safari: SFSafariViewController, on windowScene: UIWindowScene) {
             safari.delegate = self
-            
+            windowScene.windows.forEach { $0.endEditing(true) }
             let (window, viewController) = setup(windowScene: windowScene)
             windows[safari] = window
             viewController.present(safari, animated: true)
