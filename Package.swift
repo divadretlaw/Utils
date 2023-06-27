@@ -53,6 +53,10 @@ let package = Package(
             targets: ["TaskButton"]
         ),
         .library(
+            name: "RatingRequester",
+            targets: ["RatingRequester"]
+        ),
+        .library(
             name: "UserDefaultsBrowser",
             targets: ["UserDefaultsBrowser"]
         )
