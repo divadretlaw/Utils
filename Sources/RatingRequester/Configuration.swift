@@ -27,25 +27,25 @@ public extension RatingRequester {
             self.delay = 0
         }
         
-        public func timeIntervalSinceFirstLaunch(_ value: TimeInterval) -> Self {
+        public func timeSinceFirstLaunch(seconds value: TimeInterval) -> Self {
             var config = self
             config.timeIntervalSinceFirstLaunch = value
             return config
         }
         
-        public func daysSinceFirstLaunch(_ value: TimeInterval) -> Self {
+        public func timeSinceFirstLaunch(days value: TimeInterval) -> Self {
             var config = self
             config.timeIntervalSinceFirstLaunch = value * 86_400 // 24 hours in seconds
             return config
         }
         
-        public func timeIntervalSinceLastRequest(_ value: TimeInterval) -> Self {
+        public func timeSinceLastRequest(seconds value: TimeInterval) -> Self {
             var config = self
             config.timeIntervalSinceLastRequest = value
             return config
         }
         
-        public func daysSinceLastRequest(_ value: TimeInterval) -> Self {
+        public func timeSinceLastRequest(days value: TimeInterval) -> Self {
             var config = self
             config.timeIntervalSinceLastRequest = value * 86_400 // 24 hours in seconds
             return config
@@ -54,6 +54,12 @@ public extension RatingRequester {
         public func totalAppSessions(_ value: Int) -> Self {
             var config = self
             config.totalAppSessions = value
+            return config
+        }
+        
+        public func recentAppSessions(_ value: Int) -> Self {
+            var config = self
+            config.recentAppSessions = value
             return config
         }
         

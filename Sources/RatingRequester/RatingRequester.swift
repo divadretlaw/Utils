@@ -32,7 +32,7 @@ public final class RatingRequester {
         self.configuration = configuration
     }
     
-    public func setConfiguration(_ configuration: Configuration) -> Self {
+    @discardableResult public func setConfiguration(_ configuration: Configuration) -> Self {
         self.configuration = configuration
         return self
     }
