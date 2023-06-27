@@ -112,6 +112,10 @@ let package = Package(
             dependencies: []
         ),
         .target(
+            name: "RatingRequester",
+            dependencies: ["AppInfo"]
+        ),
+        .target(
             name: "UserDefaultsBrowser",
             dependencies: []
         ),
