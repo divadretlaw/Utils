@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-extension View {
-    func askForRating(perform: @escaping (RatingRequester) -> Void) -> some View {
+public extension View {
+    func askForRating(perform: @escaping (RatingRequester) async -> Void) -> some View {
         modifier(RatingRequesterViewModifier(perform: perform))
     }
 }
 
 struct RatingRequesterViewModifier: ViewModifier {
-    var perform: (RatingRequester) -> Void
+    var perform: (RatingRequester) async -> Void
     
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.ratingRequester) private var ratingRequester
@@ -36,7 +36,7 @@ struct RatingRequesterViewModifier: ViewModifier {
                     return
                 }
                 
-                perform(ratingRequester)
+                await perform(ratingRequester)
             }
     }
 }
