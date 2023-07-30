@@ -71,7 +71,7 @@ public final class RatingRequester {
                 return AppInfo.version != lastRequestVersion?.wrappedValue
             }()
         ]
-        return evaluatedConfig.values.contains(false)
+        return !evaluatedConfig.values.contains(false)
     }
     
     private func reset() {
