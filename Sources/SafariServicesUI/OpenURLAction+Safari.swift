@@ -15,7 +15,9 @@ public extension OpenURLAction.Result {
             return .systemAction
         }
         
-        let scene = UIApplication.shared.connectedScenes.first { $0.activationState == .foregroundActive } as? UIWindowScene
+        let scene = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first { $0.activationState == .foregroundActive }
         let window = scene?.windows.first { $0.isKeyWindow }
         
         guard let rootViewController = window?.rootViewController else {
@@ -30,7 +32,7 @@ public extension OpenURLAction.Result {
         return .handled
     }
     
-    static func safari(_ url: URL, configure: (inout OpenURLAction.SafariConfiguration) -> Void) -> Self {
+    static func safari(_ url: URL, configure: (inout SafariConfiguration) -> Void) -> Self {
         guard url.supportsSafari else {
             return .systemAction
         }
@@ -42,7 +44,7 @@ public extension OpenURLAction.Result {
             return .systemAction
         }
         
-        var config = OpenURLAction.SafariConfiguration()
+        var config = SafariConfiguration()
         configure(&config)
         
         let safari = SFSafariViewController(url: url, configuration: config.configuration)
@@ -70,13 +72,13 @@ public extension OpenURLAction.Result {
         
         let safari = SFSafariViewController(url: url)
         
-        OpenURLAction.SafariManager.shared.present(safari, on: windowScene)
+        SafariManager.shared.present(safari, on: windowScene)
         
         return .handled
     }
     
     @MainActor
-    static func safariWindow(_ url: URL, windowScene: UIWindowScene?, configure: (inout OpenURLAction.SafariConfiguration) -> Void) -> Self {
+    static func safariWindow(_ url: URL, windowScene: UIWindowScene?, configure: (inout SafariConfiguration) -> Void) -> Self {
         guard url.supportsSafari else {
             return .systemAction
         }
@@ -85,7 +87,7 @@ public extension OpenURLAction.Result {
             return .safari(url)
         }
         
-        var config = OpenURLAction.SafariConfiguration()
+        var config = SafariConfiguration()
         configure(&config)
         
         let safari = SFSafariViewController(url: url, configuration: config.configuration)
@@ -94,54 +96,9 @@ public extension OpenURLAction.Result {
         safari.dismissButtonStyle = config.dismissButtonStyle
         safari.overrideUserInterfaceStyle = config.overrideUserInterfaceStyle
         
-        OpenURLAction.SafariManager.shared.present(safari, on: windowScene)
+        SafariManager.shared.present(safari, on: windowScene)
         
         return .handled
-    }
-}
-
-extension OpenURLAction {
-    public struct SafariConfiguration {
-        public var configuration: SFSafariViewController.Configuration = SFSafariViewController.Configuration()
-        public var preferredBarTintColor: UIColor? = nil
-        public var preferredControlTintColor: UIColor? = .tintColor
-        public var dismissButtonStyle: SFSafariViewController.DismissButtonStyle = .done
-        public var modalPresentationStyle: UIModalPresentationStyle = .automatic
-        public var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
-    }
-}
-
-extension OpenURLAction {
-    private class SafariManager: NSObject, ObservableObject, SFSafariViewControllerDelegate {
-        static var shared = SafariManager()
-        
-        private var windows: [SFSafariViewController: UIWindow] = [:]
-        
-        @MainActor
-        public func present(_ safari: SFSafariViewController, on windowScene: UIWindowScene) {
-            safari.delegate = self
-            windowScene.windows.forEach { $0.endEditing(true) }
-            let (window, viewController) = setup(windowScene: windowScene)
-            windows[safari] = window
-            viewController.present(safari, animated: true)
-        }
-        
-        private func setup(windowScene: UIWindowScene) -> (UIWindow, UIViewController) {
-            let window = UIWindow(windowScene: windowScene)
-            
-            let viewController = UIViewController()
-            window.rootViewController = viewController
-            window.makeKeyAndVisible()
-            
-            return (window, viewController)
-        }
-        
-        internal func safariViewControllerDidFinish(_ safari: SFSafariViewController) {
-            let window = safari.view.window
-            window?.resignKey()
-            window?.isHidden = false
-            windows[safari] = nil
-        }
     }
 }
 #endif
