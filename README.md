@@ -7,6 +7,7 @@ A collection of utilities for iOS apps
 - [`Appearance`](Sources/Appearance/Documentation.docc/Documentation.md)
 - [`AppInfo`](Sources/AppInfo/Documentation.docc/Documentation.md)
 - [`LicensePlist`](Sources/LicensePlist/Documentation.docc/Documentation.md)
+- [`RatingRequester`](Sources/RatingRequester/Documentation.docc/Documentation.md)
 
 ## SwiftUI Frameworks
 
@@ -14,6 +15,7 @@ A collection of utilities for iOS apps
 - [`AppInfoUI`](Sources/AppInfoUI/Documentation.docc/Documentation.md)
 - [`AlternateIconUI`](Sources/AlternateIconUI/Documentation.docc/Documentation.md)
 - [`LicensePlistUI`](Sources/LicensePlistUI/Documentation.docc/Documentation.md)
+- [`Tasks`](Sources/Tasks/Documentation.docc/Documentation.md)
 
 ## Debug Frameworks
 
