@@ -90,7 +90,11 @@ public class AppearanceManager: ObservableObject {
         
         UIApplication.shared.connectedScenes.forEach { scene in
             if let windowScene = scene as? UIWindowScene {
-                windowScene.windows.forEach { $0.overrideUserInterfaceStyle = userInterfaceStyle }
+                windowScene.windows.forEach { window in
+                    UIView.transition(with: window, duration: 0.3) { [userInterfaceStyle] in
+                        window.overrideUserInterfaceStyle = userInterfaceStyle
+                    }
+                }
             }
         }
     }

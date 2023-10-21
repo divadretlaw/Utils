@@ -139,6 +139,7 @@ public struct AppearanceSettingsView: View {
                     Text("appearance.mode.brightness".localized())
                 } footer: {
                     Text(String(format: "appearance.mode.brightness.slider.hint".localized(), Int(manager.brightnessThreshold * 100)))
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
             #endif
