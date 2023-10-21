@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class UserDefaultsObservation: NSObject {
+public final class UserDefaultsObservation: NSObject {
     public let key: UserDefaultsKey
     private var onChange: (Any, Any) -> Void
 

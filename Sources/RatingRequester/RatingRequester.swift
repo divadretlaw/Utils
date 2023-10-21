@@ -1,6 +1,6 @@
 //
 //  RatingRequester.swift
-//  RatingRequester
+//  Utils/RatingRequester
 //
 //  Created by David Walter on 26.06.23.
 //
@@ -83,6 +83,7 @@ public final class RatingRequester {
     #if os(iOS)
     public func requestReview(in windowScene: UIWindowScene) async {
         guard checkConfiguration() else { return }
+        
         do {
             if let delay = configuration?.delay {
                 try await Task.sleep(nanoseconds: delay)
@@ -96,6 +97,7 @@ public final class RatingRequester {
     #else
     public func requestReview() async {
         guard checkConfiguration() else { return }
+        
         do {
             if let delay = configuration?.delay {
                 try await Task.sleep(nanoseconds: delay)
@@ -112,6 +114,15 @@ public final class RatingRequester {
     
     public func firstLaunchDate(callback: @escaping () -> Date) -> Self {
         self.firstLaunchDate = Binding(get: callback)
+        return self
+    }
+    
+    public func firstLaunchDate(key: String, userDefaults: UserDefaults = .standard) -> Self {
+        firstLaunchDate = Binding {
+            Date(timeIntervalSince1970: userDefaults.double(forKey: key))
+        } set: { _ in
+            
+        }
         return self
     }
     

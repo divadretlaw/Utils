@@ -7,7 +7,13 @@
 
 import SwiftUI
 
-struct BlackWhiteViewModifier: ViewModifier {
+extension View {
+    func blackAndWhite() -> some View {
+        modifier(BlackWhiteViewModifier())
+    }
+}
+
+private struct BlackWhiteViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         ZStack {
             content
@@ -32,7 +38,7 @@ struct BlackWhiteViewModifier: ViewModifier {
     }
 }
 
-struct TriangleTopRight: Shape {
+private struct TriangleTopRight: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
 
@@ -47,7 +53,7 @@ struct TriangleTopRight: Shape {
     }
 }
 
-struct TriangleBottomLeft: Shape {
+private struct TriangleBottomLeft: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
 

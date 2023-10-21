@@ -65,8 +65,8 @@ struct MFMailView: UIViewControllerRepresentable {
         // MARK: MFMailComposeViewControllerDelegate
         
         func mailComposeController(_ controller: MFMailComposeViewController,
-                                          didFinishWith result: MFMailComposeResult,
-                                          error: Error?) {
+                                   didFinishWith result: MFMailComposeResult,
+                                   error: Error?) {
             defer {
                 self.isPresented = false
             }

@@ -1,12 +1,13 @@
 //
 //  TaskButton.swift
-//  Utils/TaskButton
+//  Utils/Tasks
 //
 //  Created by David Walter on 21.01.23.
 //
 
 import SwiftUI
 
+/// A control that initiates an action.
 public struct TaskButton<Label>: View  where Label: View {
     var role: ButtonRole?
     var mode: TaskButtonMode = .disabled
@@ -16,7 +17,7 @@ public struct TaskButton<Label>: View  where Label: View {
     var error: ((Error) -> Void)?
     
     @State private var isRunning = false
-    @State private var task: Task<(), Never>?
+    @State private var task: Task<Void, Never>?
     
     /// Creates a button with a specified role that displays a custom label.
     ///
@@ -31,12 +32,12 @@ public struct TaskButton<Label>: View  where Label: View {
         role: ButtonRole? = nil,
         action: @MainActor @Sendable @escaping () async throws -> Void,
         @ViewBuilder label: @escaping () -> Label,
-        error: ((Error) -> Void)? = nil
+        onError: ((Error) -> Void)? = nil
     ) {
         self.role = role
         self.action = action
         self.label = { _ in label() }
-        self.error = error
+        self.error = onError
     }
     
     /// Creates a button with a specified role that displays a custom label.
@@ -53,24 +54,22 @@ public struct TaskButton<Label>: View  where Label: View {
         mode: TaskButtonMode = .disabled,
         action: @MainActor @Sendable @escaping () async throws -> Void,
         @ViewBuilder label: @escaping (_ isRunning: Bool) -> Label,
-        error: ((Error) -> Void)? = nil
+        onError: ((Error) -> Void)? = nil
     ) {
         self.role = role
         self.mode = mode
         self.action = action
         self.label = label
-        self.error = error
+        self.error = onError
     }
     
     public var body: some View {
         Button(role: role) {
             if self.isRunning {
-                print("TaskButton is running. Cancelling.")
                 self.task?.cancel()
                 
                 switch mode {
                 case .disabled:
-                    print("TaskButton was disabled.")
                     return
                 case .cancel:
                     self.isRunning = false
@@ -83,13 +82,11 @@ public struct TaskButton<Label>: View  where Label: View {
             self.isRunning = true
             self.task = Task(priority: priority) {
                 do {
-                    print("Start TaskButton action.")
                     try await action()
                 } catch {
                     self.error?(error)
                 }
                 guard !Task.isCancelled else { return }
-                print("Start TaskButton action done.")
                 self.isRunning = false
             }
         } label: {
@@ -157,7 +154,7 @@ struct TaskButton_Previews: PreviewProvider {
             try await Task.sleep(nanoseconds: 2_000_000_000)
         } label: {
             Text("Test")
-        } error: { error in
+        } onError: { error in
             print(error.localizedDescription)
         }
         .previewDisplayName("Error Callback")
@@ -182,7 +179,7 @@ struct TaskButton_Previews: PreviewProvider {
             } else {
                 Text("Test")
             }
-        } error: { error in
+        } onError: { error in
             print(error.localizedDescription)
         }
         .taskButtonMode(.cancelAndRetry)

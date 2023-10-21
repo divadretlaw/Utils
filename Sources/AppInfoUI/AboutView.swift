@@ -9,7 +9,8 @@ import SwiftUI
 import AppInfo
 
 public struct AboutView: View {
-    var additional: [String]
+    let appInfo = AppInfo()
+    let additional: [String]
     
     var titleColor = Color.primary
     var additionalColor = Color.primary
@@ -23,14 +24,10 @@ public struct AboutView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             
             VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .center, spacing: 4) {
-                    Text(AppInfo.name ?? "")
-                        .font(.headline)
-                    Text(AppInfo.version ?? "")
-                        .font(.headline)
-                }
-                .foregroundColor(titleColor)
-                .lineLimit(1)
+                Text(appName)
+                    .font(.headline)
+                    .foregroundColor(titleColor)
+                    .lineLimit(1)
                 
                 ForEach(additional, id: \.self) { text in
                     Text(text)
@@ -45,7 +42,7 @@ public struct AboutView: View {
     
     var appIcon: Image {
         #if canImport(UIKit)
-        if let icon = AppInfo.icon {
+        if let icon = appInfo.icon {
             return Image(uiImage: icon)
         } else {
             return Image(systemName: "app.dashed")
@@ -55,7 +52,17 @@ public struct AboutView: View {
         #endif
     }
     
+    var appName: String {
+        [appInfo.name, appInfo.version]
+            .compactMap { $0 }
+            .joined(separator: " ")
+    }
+    
     public init(additional: [String] = []) {
+        self.additional = additional
+    }
+    
+    public init(additional: String...) {
         self.additional = additional
     }
     
@@ -80,6 +87,13 @@ struct AboutView_Previews: PreviewProvider {
                     Text("Some other info")
                 } header: {
                     AboutView(additional: ["by David Walter"])
+                        .padding(.vertical)
+                }
+                
+                Section {
+                    Text("Some other info")
+                } header: {
+                    AboutView(additional: "by David Walter", "and others...")
                         .padding(.vertical)
                 }
             }

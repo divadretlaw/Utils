@@ -10,10 +10,12 @@ import SwiftUI
 import MessageUI
 
 extension View {
-    public func mailSheet(isPresented: Binding<Bool>,
-                          options: MFMailViewOptions? = nil,
-                          completionHandler: @escaping (Result<MFMailComposeResult, Error>) -> Void,
-                          onDismiss: (() -> Void)? = nil) -> some View {
+    public func mailSheet(
+        isPresented: Binding<Bool>,
+        options: MFMailViewOptions? = nil,
+        completionHandler: @escaping (Result<MFMailComposeResult, Error>) -> Void,
+        onDismiss: (() -> Void)? = nil
+    ) -> some View {
         sheet(isPresented: isPresented, onDismiss: onDismiss) {
             MFMailView(isPresented: isPresented, options: options, completionHandler: completionHandler)
         }

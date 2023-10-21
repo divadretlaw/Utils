@@ -1,6 +1,6 @@
 //
 //  Binding.swift
-//  RatingRequester
+//  Utils/RatingRequester
 //
 //  Created by David Walter on 26.06.23.
 //

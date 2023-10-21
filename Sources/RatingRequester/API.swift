@@ -1,6 +1,6 @@
 //
 //  API.swift
-//  RatingRequester
+//  Utils/RatingRequester
 //
 //  Created by David Walter on 27.06.23.
 //
@@ -8,12 +8,15 @@
 import SwiftUI
 
 public extension View {
+    /// Ask for a rating
+    /// 
+    /// - Parameter perform: Callback to configure the ``RatingRequester``
     func askForRating(perform: @escaping (RatingRequester) async -> Void) -> some View {
         modifier(RatingRequesterViewModifier(perform: perform))
     }
 }
 
-struct RatingRequesterViewModifier: ViewModifier {
+private struct RatingRequesterViewModifier: ViewModifier {
     var perform: (RatingRequester) async -> Void
     
     @Environment(\.scenePhase) private var scenePhase
@@ -41,7 +44,7 @@ struct RatingRequesterViewModifier: ViewModifier {
     }
 }
 
-struct RatingRequesterEnvironmentKey: EnvironmentKey {
+private struct RatingRequesterEnvironmentKey: EnvironmentKey {
     static var defaultValue: RatingRequester {
         RatingRequester.shared
     }
@@ -49,11 +52,7 @@ struct RatingRequesterEnvironmentKey: EnvironmentKey {
 
 public extension EnvironmentValues {
     var ratingRequester: RatingRequester {
-        get {
-            self[RatingRequesterEnvironmentKey.self]
-        }
-        set {
-            self[RatingRequesterEnvironmentKey.self] = newValue
-        }
+        get { self[RatingRequesterEnvironmentKey.self] }
+        set { self[RatingRequesterEnvironmentKey.self] = newValue }
     }
 }

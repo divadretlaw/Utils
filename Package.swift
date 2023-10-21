@@ -6,7 +6,12 @@ import PackageDescription
 let package = Package(
     name: "Utils",
     defaultLocalization: "en",
-    platforms: [.iOS(.v15), .macOS(.v13)],
+    platforms: [
+        .iOS(.v15),
+        .macOS(.v13),
+        .tvOS(.v15),
+        .watchOS(.v8)
+    ],
     products: [
         .library(
             name: "Defaults",
@@ -45,12 +50,8 @@ let package = Package(
             targets: ["MFMailUI"]
         ),
         .library(
-            name: "SafariServicesUI",
-            targets: ["SafariServicesUI"]
-        ),
-        .library(
-            name: "TaskButton",
-            targets: ["TaskButton"]
+            name: "Tasks",
+            targets: ["Tasks"]
         ),
         .library(
             name: "RatingRequester",
@@ -62,7 +63,6 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/divadretlaw/WindowSceneReader.git", from: "2.0.0")
     ],
     targets: [
         .target(
@@ -108,11 +108,7 @@ let package = Package(
             dependencies: []
         ),
         .target(
-            name: "SafariServicesUI",
-            dependencies: ["WindowSceneReader"]
-        ),
-        .target(
-            name: "TaskButton",
+            name: "Tasks",
             dependencies: []
         ),
         .target(

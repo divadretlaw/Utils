@@ -14,8 +14,6 @@ A collection of utilities for iOS apps
 - [`AppInfoUI`](Sources/AppInfoUI/Documentation.docc/Documentation.md)
 - [`AlternateIconUI`](Sources/AlternateIconUI/Documentation.docc/Documentation.md)
 - [`LicensePlistUI`](Sources/LicensePlistUI/Documentation.docc/Documentation.md)
-- [`SafariServicesUI`](Sources/SafariServicesUI/Documentation.docc/Documentation.md)
-- [`TaskButton`](Sources/TaskButton/Documentation.docc/Documentation.md)
 
 ## Debug Frameworks
 

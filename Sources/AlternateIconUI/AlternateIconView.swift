@@ -149,6 +149,12 @@ struct AlternateIconView_Previews: PreviewProvider {
             AlternateIconView(icons: PreviewAlternateIcon.allCases)
                 .navigationTitle("App Icon")
         }
+        
+        NavigationView {
+            AlternateIconView(icons: PreviewAlternateIcon.allCases)
+                .style(.grid(columns: 2))
+                .navigationTitle("App Icon")
+        }
     }
 }
 #endif

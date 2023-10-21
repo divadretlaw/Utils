@@ -27,7 +27,7 @@ public struct AppearanceSettingsView: View {
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
-                                    .modifier(BlackWhiteViewModifier())
+                                    .blackAndWhite()
                             } else {
                                 mode.icon
                                     .resizable()

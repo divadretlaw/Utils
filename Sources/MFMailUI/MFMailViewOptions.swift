@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// <#Description#>
 public struct MFMailViewOptions {
     let toRecipients: [String]?
     let ccRecipients: [String]?

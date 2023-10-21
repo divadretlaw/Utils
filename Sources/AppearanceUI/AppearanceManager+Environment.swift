@@ -21,12 +21,8 @@ struct AppearanceManagerEnvironmentKey: EnvironmentKey {
 
 public extension EnvironmentValues {
     var appearanceManager: AppearanceManager {
-        get {
-            self[AppearanceManagerEnvironmentKey.self]
-        }
-        set {
-            self[AppearanceManagerEnvironmentKey.self] = newValue
-        }
+        get { self[AppearanceManagerEnvironmentKey.self] }
+        set { self[AppearanceManagerEnvironmentKey.self] = newValue }
     }
 }
 #endif

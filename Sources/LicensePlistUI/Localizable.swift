@@ -10,7 +10,6 @@ import Foundation
 extension String {
     func localized(comment: String = "") -> String {
         let bundle = Bundle.main.path(forResource: "LicensePlist", ofType: "strings") != nil ? Bundle.main : Bundle.module
-        
         return NSLocalizedString(self, tableName: "LicensePlist", bundle: bundle, comment: comment)
     }
 }
