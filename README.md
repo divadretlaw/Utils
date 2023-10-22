@@ -11,10 +11,11 @@ A collection of utilities for iOS apps
 
 ## SwiftUI Frameworks
 
+- [`AlternateIconUI`](Sources/AlternateIconUI/Documentation.docc/Documentation.md)
 - [`AppearanceUI`](Sources/AppearanceUI/Documentation.docc/Documentation.md)
 - [`AppInfoUI`](Sources/AppInfoUI/Documentation.docc/Documentation.md)
-- [`AlternateIconUI`](Sources/AlternateIconUI/Documentation.docc/Documentation.md)
 - [`LicensePlistUI`](Sources/LicensePlistUI/Documentation.docc/Documentation.md)
+- [`MFMailUI`](Sources/MFMailUI/Documentation.docc/Documentation.md)
 - [`Tasks`](Sources/Tasks/Documentation.docc/Documentation.md)
 
 ## Debug Frameworks

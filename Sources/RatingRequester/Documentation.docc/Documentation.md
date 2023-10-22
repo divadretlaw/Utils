@@ -1,3 +1,3 @@
-# ``LicensePlistUI``
+# ``RatingRequester``
 
-Easily display licenses within the application
+Easily ask for ratings in your application.

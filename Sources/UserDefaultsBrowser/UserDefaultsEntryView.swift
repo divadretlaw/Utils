@@ -20,6 +20,7 @@ struct UserDefaultsEntryView: View {
             formattedData
             rawData
         }
+        .listStyle(.insetGrouped)
         .navigationTitle(entry.key)
         .toolbar {
             Button(role: .destructive) {
@@ -27,6 +28,7 @@ struct UserDefaultsEntryView: View {
             } label: {
                 Image(systemName: "trash")
             }
+            .foregroundColor(.red)
         }
         .alert("Delete", isPresented: $showDeleteConfirmation) {
             Button(role: .cancel) {

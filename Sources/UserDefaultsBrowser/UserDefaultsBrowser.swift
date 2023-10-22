@@ -8,8 +8,10 @@
 import SwiftUI
 
 public struct UserDefaultsBrowser: View {
-    var userDefaults: UserDefaults
-    @State var entries: [UserDefaultsEntry] = []
+    private var userDefaults: UserDefaults
+    @State private var entries: [UserDefaultsEntry] = []
+    
+    @Namespace private var listId
     
     public init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
@@ -17,29 +19,44 @@ public struct UserDefaultsBrowser: View {
     
     public var body: some View {
         List {
-            ForEach(entries, id: \.id) { entry in
-                self.row(for: entry)
+            ForEach(entries) { entry in
+                row(for: entry)
+                    .matchedGeometryEffect(id: entry.id, in: listId)
                     .contextMenu {
                         Button(role: .destructive) {
-                            self.delete(entry: entry)
+                            delete(entry: entry)
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }
             }
         }
-        .listStyle(.plain)
+        .coordinateSpace(name: listId)
+        .listStyle(.insetGrouped)
         .navigationTitle("UserDefaults")
-        .onAppear {
-            loadAllUserDefaults()
+        .animation(.default, value: entries)
+        .task {
+            await loadAllUserDefaults()
+            
+            for await _ in NotificationCenter.default.notifications(named: UserDefaults.didChangeNotification).map({ $0.name }) {
+                await loadAllUserDefaults()
+            }
         }
     }
     
-    func loadAllUserDefaults() {
-        entries = userDefaults
-            .dictionaryRepresentation()
-            .map { UserDefaultsEntry(key: $0, value: $1) }
-            .sorted(by: <)
+    @MainActor
+    func loadAllUserDefaults() async {
+        let task = Task.detached {
+            try? await Task.sleep(nanoseconds: 1 * NSEC_PER_SEC)
+            return userDefaults
+                .dictionaryRepresentation()
+                .map { UserDefaultsEntry(key: $0, value: $1) }
+                .sorted(by: <)
+        }
+        let entries = await task.value
+        withAnimation {
+            self.entries = entries
+        }
     }
     
     func delete(entry: UserDefaultsEntry) {

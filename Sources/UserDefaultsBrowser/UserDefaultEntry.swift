@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserDefaultsEntry: Identifiable, Comparable {
+struct UserDefaultsEntry: Identifiable, Comparable, Equatable {
     let key: String
     let value: Any
     
@@ -37,6 +37,8 @@ struct UserDefaultsEntry: Identifiable, Comparable {
     static func < (lhs: UserDefaultsEntry, rhs: UserDefaultsEntry) -> Bool {
         lhs.key < rhs.key
     }
+    
+    // MARK: - Equatable
     
     static func == (lhs: UserDefaultsEntry, rhs: UserDefaultsEntry) -> Bool {
         lhs.id == rhs.id

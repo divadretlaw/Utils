@@ -7,7 +7,9 @@
 
 import Foundation
 
+/// Parsed License Plist file
 public struct LicensePlist: Hashable {
+    /// Possible parsing errors
     public enum Error: Swift.Error {
         /// No settings bundle was found
         case noSettingsBundle
@@ -17,6 +19,7 @@ public struct LicensePlist: Hashable {
         case invalidFormat
     }
     
+    /// An entry in the License Plist file
     public struct Entry: Identifiable, Hashable {
         /// Unique identifier of the entry
         public let id: UUID
@@ -29,6 +32,10 @@ public struct LicensePlist: Hashable {
         /// The source of the entry/license
         public var source: String?
         
+        /// Initialize an entry in the License Plist file
+        /// - Parameters:
+        ///   - title: The title of the entry.
+        ///   - url: The url of the details of the entry.
         public init?(title: String, url: URL) {
             self.id = UUID()
             self.title = title
@@ -63,6 +70,12 @@ public struct LicensePlist: Hashable {
             }
         }
         
+        /// Initialize an entry in the License Plist file
+        /// - Parameters:
+        ///   - title: The title of the entry.
+        ///   - license: The license of the entry.
+        ///   - licenseType: The ``LicenseType`` of the entry.
+        ///   - source: The source of the entry.
         public init(title: String, license: String, licenseType: LicenseType? = nil, source: String? = nil) {
             self.id = UUID()
             self.title = title
@@ -74,6 +87,11 @@ public struct LicensePlist: Hashable {
     
     public let entries: [Entry]
     
+    /// Parse a ``LicensePlist`` from the given settings bundle
+    ///
+    /// - Parameters:
+    ///   - filename: The file containg the license plist entries.
+    ///   - settingsBundle: Path to the settings bundle.
     public init(filename: String, settingsBundle: URL? = Bundle.main.url(forResource: "Settings", withExtension: "bundle")) throws {
         guard let settingsURL = settingsBundle else {
             throw Error.noSettingsBundle
@@ -99,6 +117,9 @@ public struct LicensePlist: Hashable {
         }
     }
     
+    /// Initialize ``LicensePlist`` from the given entries.
+    ///
+    /// - Parameter entries: The entries of the license plist
     public init(entries: [Entry]) {
         self.entries = entries
     }
